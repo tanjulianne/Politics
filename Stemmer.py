@@ -8,6 +8,7 @@ from nltk.stem.wordnet import WordNetLemmatizer
 dom = xml.dom.minidom.parse("RodrigoDuterte.xml")
 Topic = dom.getElementsByTagName('article')
 
+articleCol = []
 articles = ""
 for node in Topic:
 	alist = node.getElementsByTagName('body')
@@ -16,6 +17,16 @@ for node in Topic:
 		for p in para:
 			article = p.firstChild.data
 			articles = articles + article
+			articleCol.insert(0, article)
+
+time = []
+for node in Topic:
+	alist = node.getElementsByTagName('timePub')
+	for a in alist: 
+		timepub = a.firstChild.data
+		time.insert(0, timepub)
+
+print(time)
 
 #tokenize
 
@@ -31,16 +42,6 @@ roots = []
 lmtzr = WordNetLemmatizer()
 for i in range(0, len(tokens)):
 	roots.append(lmtzr.lemmatize(tokens[i]))
-#for token in tokens:
-#	roots.extend(lmtzr.lemmatize(token))
 
-print(roots)
-
-#roots = ""
-#stemmer = PorterStemmer()
-#for token in tokens:
-#	roots = roots + stemmer.stem(token)
-#print(' '.join(roots))
-#roots = [stemmer.stem(tokens) for token in tokens]
-#filtered = [root for root in roots if root not in stopwords.words('english')]
-#print(' '.join(roots))
+filtered = [root for root in roots if root not in stopwords.words('english')]
+#print(' '.join(filtered))
