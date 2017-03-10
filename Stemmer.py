@@ -29,8 +29,10 @@ tokens = re.findall(r"\w+",articles)
 
 roots = []
 lmtzr = WordNetLemmatizer()
-for token in tokens:
-	roots.extend(lmtzr.lemmatize(token))
+for i in range(0, len(tokens)):
+	roots.append(lmtzr.lemmatize(tokens[i]))
+#for token in tokens:
+#	roots.extend(lmtzr.lemmatize(token))
 
 print(roots)
 
